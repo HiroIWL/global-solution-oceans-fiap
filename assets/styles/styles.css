@@ -1,0 +1,48 @@
+#dropdown-menu {
+    display: none;
+}
+
+#dropdown-menu.show {
+    display: block;
+}
+
+#chat-menu {
+    border-radius: 24px 0px 0px 0px;
+    border-top: 1px solid #a68ae2;
+    border-bottom: 1px solid #a68ae2;
+    border-left: 1px solid #a68ae2;
+    background: linear-gradient(294deg, #000108 49.06%, #363b71 182.81%);
+    display: none;
+}
+
+#chat-menu.show {
+    display: flex;
+}
+
+#message {
+    position: relative;
+    background-color: #f3f4f6; /* Equivalent to bg-gray-100 */
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+#message::before {
+    content: '';
+    position: absolute;
+    right: -10px; /* Adjust this value to position the arrow */
+    top: 10px; /* Adjust this value to align the arrow vertically */
+    width: 0;
+    height: 0;
+    border-top: 10px solid #f3f4f6; /* Same as the background color of the message bubble */
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+}
+
+@media screen and (max-width: 768px) {
+    #chat-menu {
+        width: 100% !important;
+        border-radius: 0px;
+        border-top-left-radius: 24px;
+        border-top-right-radius: 24px;
+    }
+}

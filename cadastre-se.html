@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="./assets/styles/styles.css" />
+        <title>Global Solution Oceans</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="./assets/javascript/index.js"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            'darker-blue': '#01010f',
+                            'dark-blue': '#080b1c',
+                            'lighter-blue': '#8a9de2',
+                            'light-blue': '#667ac2',
+                            'light-purple': '#a68ae2',
+                            'even-lighter-blue': '#DBE4F2',
+                            black: '#000000',
+                            'left-gradient-purple-opacity': '#A68AE22D',
+                            'middle-gradient-purple-opacity': '#BA9FF351',
+                            'right-gradient-purple-opacity': '#3F1B8C7F',
+                            'purple-left': '#A68AE2',
+                            'purple-right': '#3F1B8C',
+                            'dark-purple': '#363B71',
+                        },
+                        fontFamily: {
+                            roboto: ['Roboto', 'sans-serif'],
+                        },
+                    },
+                },
+            };
+        </script>
+    </head>
+    <body>
+        <div id="chat-menu" class="absolute h-[calc(100%-45px)] w-[500px] bottom-0 right-0 z-[1000] flex-col p-2">
+            <span id="close-chat" class="absolute top-[0.5rem] left-[0.5rem] p-2 text-white cursor-pointer">
+                <img class="w-[24px] object-cover" src="./assets/imgs/icons/icone-fechar-chat.png" alt="icone fechar" />
+            </span>
+            <div id="chat-box" class="flex flex-col h-[100%] pt-8 gap-4 overflow-y-auto overflow-x-hidden"></div>
+            <div id="chat-input" class="flex flex-col items-center justify-between p-4 gap-2">
+                <div class="w-full relative">
+                    <input
+                        id="chat-input-text"
+                        class="w-full bg-gray-800 rounded-3xl text-white text-md pl-4 placeholder-gray-400 text-white py-1"
+                        type="text"
+                        placeholder="Digite sua mensagem"
+                    />
+                    <img
+                        class="w-[24px] object-cover absolute right-0 top-[50%] transform -translate-y-1/2 mr-2"
+                        src="./assets/imgs/icons/icone-seta-enviar.png"
+                        alt="icone enviar"
+                    />
+                </div>
+                <p class="text-gray-300 text-xs text-center">
+                    ChatGPT pode cometer erros. Considere verificar informações importantes.
+                </p>
+            </div>
+        </div>
+        <div
+            class="w-[100vw] h-screen bg-darker-blue overflow-y-auto snap snap-y snap-mandatory relative z-[1] overflow-x-hidden"
+        >
+            <header
+                class="sticky top-0 flex justify-between items-center px-4 md:px-16 py-4 w-full h-[90px] bg-black relative z-[1000] bg-opacity-45 backdrop-blur-sm"
+            >
+                <div
+                    class="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-left-gradient-purple-opacity via-middle-gradient-purple-opacity to-right-gradient-purple-opacity"
+                ></div>
+                <div class="flex items-center">
+                    <img class="w-52 object-cover" src="./assets/imgs/Logo GlobalSolutions.png" alt="logo" />
+                </div>
+                <div id="menu-icon" class="flex items-center block md:hidden">
+                    <img class="w-[24px] object-cover" src="./assets/imgs/icons/icone-hamburger.png" alt="icone menu" />
+                </div>
+                <nav class="hidden md:block">
+                    <ul class="flex items-center">
+                        <li class="text-white text-lg mx-4 cursor-pointer hover:text-purple-left transition-all">
+                            <a href="/index.html">Quem Somos</a>
+                        </li>
+                        <li class="text-white text-lg mx-4 cursor-pointer hover:text-purple-left transition-all">
+                            <a href="/noticias.html">Notícias</a>
+                        </li>
+                        <li class="text-lg mx-4 cursor-pointer text-purple-left transition-all">
+                            <a href="#main-section">Cadastre-se</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div id="dropdown-menu" class="hidden absolute top-[90px] right-0 w-40 backdrop-blur-sm">
+                    <ul>
+                        <li
+                            class="text-white text-lg px-4 py-2 border-b-2 transition-all border-purple-left active:bg-dark-blue bg-black bg-opacity-90"
+                        >
+                            <a href="/index.html">Quem Somos</a>
+                        </li>
+                        <li
+                            class="text-white text-lg px-4 py-2 border-b-2 transition-all border-purple-left active:bg-dark-blue bg-black bg-opacity-90"
+                        >
+                            <a href="/noticias.html">Noticias</a>
+                        </li>
+                        <li
+                            class="text-white text-lg px-4 py-2 border-b-2 transition-all border-purple-left active:bg-dark-blue bg-black bg-opacity-90"
+                        >
+                            <a href="#main-section">Cadastre-se</a>
+                        </li>
+                    </ul>
+                </div>
+            </header>
+            <main id="main-section" class="flex flex-col items-center py-4 px-4 md:px-16 gap-24 h-full">
+                <div
+                    id="open-chat"
+                    class="fixed z-[10000] bottom-[1rem] right-[2rem] w-[32px] h-[32px] md:w-[64px] md:h-[64px] md:bottom-[1.5rem] md:right-[3rem] brightness-150 hover:brightness-200 active:brigthness-200 cursor-pointer transition-all"
+                >
+                    <img
+                        src="./assets/imgs/logo_chat_gepeto.png"
+                        alt="icone chat"
+                        class="w-[100%] h-[100%] object-cover"
+                    />
+                </div>
+                <section class="flex flex-col items-center justify-center h-full gap-2">
+                    <img class="h-[56px] object-cover` mb-16" src="./assets/imgs/Logo GlobalSolutions.png" alt="logo" />
+                    <div id="input-group" class="flex flex-col w-full">
+                        <label for="email" class="text-white text-sm">Email</label>
+                        <input
+                            id="email"
+                            class="w-full bg-gray-100 rounded-3xl text-md pl-4 placeholder-gray-800 text-black py-1"
+                            type="email"
+                            placeholder="Digite seu email"
+                        />
+                    </div>
+                    <button
+                        class="w-full bg-gradient-to-r font-regular from-purple-right to-purple-left text-white text-lg md:text-xl px-8 py-1 rounded-3xl"
+                    >
+                        Continuar
+                    </button>
+                    <p class="text-white self-start text-md">Não tem uma conta? <a href="/cadastre-se.html" class="text-purple-left underline">Cadastre-se</a></p>
+                </section>
+            </main>
+        </div>
+    </body>
+</html>

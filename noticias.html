@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="./assets/styles/styles.css" />
+        <title>Global Solution Oceans</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="./assets/javascript/index.js"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            'darker-blue': '#01010f',
+                            'dark-blue': '#080b1c',
+                            'lighter-blue': '#8a9de2',
+                            'light-blue': '#667ac2',
+                            'light-purple': '#a68ae2',
+                            'even-lighter-blue': '#DBE4F2',
+                            black: '#000000',
+                            'left-gradient-purple-opacity': '#A68AE22D',
+                            'middle-gradient-purple-opacity': '#BA9FF351',
+                            'right-gradient-purple-opacity': '#3F1B8C7F',
+                            'purple-left': '#A68AE2',
+                            'purple-right': '#3F1B8C',
+                            'dark-purple': '#363B71',
+                        },
+                        fontFamily: {
+                            roboto: ['Roboto', 'sans-serif'],
+                        },
+                    },
+                },
+            };
+        </script>
+    </head>
+    <body>
+        <div id="chat-menu" class="absolute h-[calc(100%-45px)] w-[500px] bottom-0 right-0 z-[1000] flex-col p-2">
+            <span id="close-chat" class="absolute top-[0.5rem] left-[0.5rem] p-2 text-white cursor-pointer">
+                <img class="w-[24px] object-cover" src="./assets/imgs/icons/icone-fechar-chat.png" alt="icone fechar" />
+            </span>
+            <div id="chat-box" class="flex flex-col h-[100%] pt-8 gap-4 overflow-y-auto overflow-x-hidden"></div>
+            <div id="chat-input" class="flex flex-col items-center justify-between p-4 gap-2">
+                <div class="w-full relative">
+                    <input
+                        id="chat-input-text"
+                        class="w-full bg-gray-800 rounded-3xl text-white text-md pl-4 placeholder-gray-400 text-white py-1"
+                        type="text"
+                        placeholder="Digite sua mensagem"
+                    />
+                    <img
+                        class="w-[24px] object-cover absolute right-0 top-[50%] transform -translate-y-1/2 mr-2"
+                        src="./assets/imgs/icons/icone-seta-enviar.png"
+                        alt="icone enviar"
+                    />
+                </div>
+                <p class="text-gray-300 text-xs text-center">
+                    ChatGPT pode cometer erros. Considere verificar informações importantes.
+                </p>
+            </div>
+        </div>
+        <div
+            class="w-[100vw] h-screen bg-darker-blue overflow-y-auto snap snap-y snap-mandatory relative z-[1] overflow-x-hidden"
+        >
+            <header
+                class="sticky top-0 flex justify-between items-center px-4 md:px-16 py-4 w-full h-[90px] bg-black relative z-[1000] bg-opacity-45 backdrop-blur-sm"
+            >
+                <div
+                    class="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-left-gradient-purple-opacity via-middle-gradient-purple-opacity to-right-gradient-purple-opacity"
+                ></div>
+                <div class="flex items-center">
+                    <img class="w-52 object-cover" src="./assets/imgs/Logo GlobalSolutions.png" alt="logo" />
+                </div>
+                <div id="menu-icon" class="flex items-center block md:hidden">
+                    <img class="w-[24px] object-cover" src="./assets/imgs/icons/icone-hamburger.png" alt="icone menu" />
+                </div>
+                <nav class="hidden md:block">
+                    <ul class="flex items-center">
+                        <li class="text-white text-lg mx-4 cursor-pointer hover:text-purple-left transition-all">
+                            <a href="/index.html">Quem Somos</a>
+                        </li>
+                        <li class="text-lg mx-4 cursor-pointer text-purple-left transition-all">
+                            <a href="#main-section">Notícias</a>
+                        </li>
+                        <li class="text-white text-lg mx-4 cursor-pointer hover:text-purple-left transition-all">
+                            <a href="/cadastre-se.html">Cadastre-se</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div id="dropdown-menu" class="hidden absolute top-[90px] right-0 w-40 backdrop-blur-sm">
+                    <ul>
+                        <li
+                            class="text-white text-lg px-4 py-2 border-b-2 transition-all border-purple-left active:bg-dark-blue bg-black bg-opacity-90"
+                        >
+                            <a href="/index.html">Quem Somos</a>
+                        </li>
+                        <li
+                            class="text-white text-lg px-4 py-2 border-b-2 transition-all border-purple-left active:bg-dark-blue bg-black bg-opacity-90"
+                        >
+                            <a href="#main-section">Noticias</a>
+                        </li>
+                        <li
+                            class="text-white text-lg px-4 py-2 border-b-2 transition-all border-purple-left active:bg-dark-blue bg-black bg-opacity-90"
+                        >
+                            <a href="/cadastre-se.html">Cadastre-se</a>
+                        </li>
+                    </ul>
+                </div>
+            </header>
+            <main id="main-section" class="flex flex-col items-center py-4 px-4 md:px-16 gap-24">
+                <div
+                    id="open-chat"
+                    class="fixed z-[10000] bottom-[1rem] right-[2rem] w-[32px] h-[32px] md:w-[64px] md:h-[64px] md:bottom-[1.5rem] md:right-[3rem] brightness-150 hover:brightness-200 active:brigthness-200 cursor-pointer transition-all"
+                >
+                    <img
+                        src="./assets/imgs/logo_chat_gepeto.png"
+                        alt="icone chat"
+                        class="w-[100%] h-[100%] object-cover"
+                    />
+                </div>
+                <section class="flex flex-col md:flex-row justify-center items-stretch gap-4 w-full flex-nowrap">
+                    <div class="flex flex-col bg-even-lighter-blue rounded-3xl p-4 md:p-8 basis-3/5">
+                        <p class="text-purple-left text-lg font-bold self-start">Pelo mundo</p>
+                        <h2 class="text-black text-3xl font-semibold mt-16 mb-4">
+                            Aenean porta sit amet turpis sed convallis. Cras mollis at mauris in feugiat. In sodales est
+                            et eros hendrerit
+                        </h2>
+                        <li>Donec at turpis eget leo finibus porttitor</li>
+                        <li>Maecenas eget pellentesque turpis, vitae elementum ests</li>
+                    </div>
+                    <div class="flex flex-col flex-1 gap-4">
+                        <div
+                            class="flex flex-col justify-end overflow-hidden relative h-[270px] w-full rounded-3xl text-white px-4 pb-8"
+                        >
+                            <img
+                                src="./assets/imgs/mar1.jpg"
+                                alt="imagem ilustrativa para a noticia sobre o mar"
+                                class="brightness-50 object-cover absolute top-[-60px] z-0 left-0"
+                            />
+                            <h2 class="text-3xl font-semibold mt-16 mb-4 relative z-1">
+                                Cras mollis at mauris in feugiat. In sodales est et eros hendrerit
+                            </h2>
+                            <li class="relative z-1">Maecenas eget pellentesque turpis, vitae elementum est</li>
+                        </div>
+
+                        <div
+                            class="flex flex-col justify-end overflow-hidden relative h-[270px] w-full rounded-3xl text-white px-4 pb-8"
+                        >
+                            <img
+                                src="./assets/imgs/mar2.jpg"
+                                alt="imagem ilustrativa para a noticia sobre o mar"
+                                class="brightness-50 object-cover absolute top-[-120px] md:top-[-300px] z-0 left-0 rotate-180"
+                            />
+                            <h2 class="text-3xl font-semibold mt-16 mb-4 relative z-1">
+                                Cras mollis at mauris in feugiat. In sodales est et eros hendrerit
+                            </h2>
+                            <li class="relative z-1">Maecenas eget pellentesque turpis, vitae elementum est</li>
+                        </div>
+                    </div>
+                </section>
+                <section class="flex flex-col justify-center gap-4 w-full">
+                    <div class="w-full flex flex-row gap-8 border-b border-b-left-purple pb-4">
+                        <img
+                            src="./assets/imgs/mar1.jpg"
+                            alt="imagem ilustrativa para a noticia sobre o mar"
+                            class="hidden md:block h-[270px] w-[400px] object-cover object-center rounded-3xl"
+                        />
+                        <div class="flex flex-col gap-4">
+                            <p class="text-purple-left text-lg font-bold self-start">Maecenas pellentesque</p>
+                            <h2 class="text-white text-xl font-semibold">
+                                Cras mollis at mauris in feugiat. In sodales est et eros hendrerit
+                            </h2>
+                            <p class="text-white text-sm font-medium">Maecenas eget pellentesque</p>
+                        </div>
+                    </div>
+                    <div class="w-full flex flex-row gap-8 border-b border-b-left-purple pb-4 justify-between">
+                        <div class="flex flex-col gap-4">
+                            <p class="text-purple-left text-lg font-bold self-start">Maecenas pellentesque</p>
+                            <h2 class="text-white text-xl font-semibold">
+                                Cras mollis at mauris in feugiat. In sodales est et eros hendrerit
+                            </h2>
+                            <p class="text-white text-sm font-medium">Maecenas eget pellentesque</p>
+                        </div>
+                        <img
+                            src="./assets/imgs/mar1.jpg"
+                            alt="imagem ilustrativa para a noticia sobre o mar"
+                            class="hidden md:block h-[270px] w-[400px] object-cover object-center rounded-3xl"
+                        />
+                    </div>
+                    <div class="w-full flex flex-row gap-8 border-b border-b-left-purple pb-4">
+                        <img
+                            src="./assets/imgs/mar1.jpg"
+                            alt="imagem ilustrativa para a noticia sobre o mar"
+                            class="hidden md:block h-[270px] w-[400px] object-cover object-center rounded-3xl"
+                        />
+                        <div class="flex flex-col gap-4">
+                            <p class="text-purple-left text-lg font-bold self-start">Maecenas pellentesque</p>
+                            <h2 class="text-white text-xl font-semibold">
+                                Cras mollis at mauris in feugiat. In sodales est et eros hendrerit
+                            </h2>
+                            <p class="text-white text-sm font-medium">Maecenas eget pellentesque</p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            <footer
+                class="hidden lg:block w-full bg-black flex flex-col justify-center items-center text-white text-lg p-16 relative"
+            >
+                <div class="w-full">
+                    <img class="w-48 object-cover" src="./assets/imgs/Logo GlobalSolutions.png" alt="logo" />
+                </div>
+                <div class="w-full flex flex-row gap-16">
+                    <div class="flex flex-col gap-4 mt-32">
+                        <p class="text-purple-left font-bold">Acesse</p>
+                        <p class="ml-4 font-light">Últimas notícias</p>
+                        <p class="ml-4 font-light">Dados importantes</p>
+                        <p class="ml-4 font-light">GS Oceans na mídia</p>
+                        <p class="ml-4 font-light">Categorias</p>
+                        <p class="ml-4 font-light">Quem somos</p>
+                        <p class="ml-4 font-light">Nossa missão</p>
+                        <p class="ml-4 font-light">Assine nossa Newsletter</p>
+                    </div>
+                    <div class="flex flex-col gap-4 mt-32">
+                        <p class="text-purple-left font-bold">Nossas redes</p>
+                        <p class="ml-4 font-light">Twitter</p>
+                        <p class="ml-4 font-light">Facebook</p>
+                        <p class="ml-4 font-light">Instagram</p>
+                        <p class="ml-4 font-light">YouTube</p>
+                        <p class="ml-4 font-light">TikTok</p>
+                        <p class="ml-4 font-light">LinkedIn</p>
+                    </div>
+                    <div class="flex flex-col gap-4 mt-32">
+                        <p class="text-purple-left font-bold">Políticas</p>
+                        <p class="ml-4 font-light">FAQ</p>
+                        <p class="ml-4 font-light">Termos de Uso</p>
+                        <p class="ml-4 font-light">Aviso de privacidade</p>
+                        <p class="ml-4 font-light">Ambientais</p>
+                        <p class="ml-4 font-light">Sociais</p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </body>
+</html>

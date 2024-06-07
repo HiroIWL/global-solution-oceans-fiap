@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="./assets/styles/styles.css" />
+        <title>Global Solution Oceans</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            'darker-blue': '#01010f',
+                            'dark-blue': '#080b1c',
+                            'lighter-blue': '#8a9de2',
+                            'light-blue': '#667ac2',
+                            'light-purple': '#a68ae2',
+                            'even-lighter-blue': '#DBE4F2',
+                            black: '#000000',
+                            'left-gradient-purple-opacity': '#A68AE22D',
+                            'middle-gradient-purple-opacity': '#BA9FF351',
+                            'right-gradient-purple-opacity': '#3F1B8C7F',
+                            'purple-left': '#A68AE2',
+                            'purple-right': '#3F1B8C',
+                            'dark-purple': '#363B71',
+                        },
+                        fontFamily: {
+                            roboto: ['Roboto', 'sans-serif'],
+                        },
+                    },
+                },
+            };
+        </script>
+    </head>
+    <body>
+        <div id="chat-menu" class="absolute h-[calc(100%-45px)] w-[500px] bottom-0 right-0 z-[1000] flex-col p-2">
+            <span id="close-chat" class="absolute top-[0.5rem] left-[0.5rem] p-2 text-white cursor-pointer">
+                <img class="w-[24px] object-cover" src="./assets/imgs/icons/icone-fechar-chat.png" alt="icone fechar" />
+            </span>
+            <div id="chat-box" class="flex flex-col h-[100%] pt-8 gap-4 overflow-y-auto overflow-x-hidden"></div>
+            <div id="chat-input" class="flex flex-col items-center justify-between p-4 gap-2">
+                <div class="w-full relative">
+                    <input
+                        id="chat-input-text"
+                        class="w-full bg-gray-800 rounded-3xl text-white text-md pl-4 placeholder-gray-400 text-white py-1"
+                        type="text"
+                        placeholder="Digite sua mensagem"
+                    />
+                    <img
+                        class="w-[24px] object-cover absolute right-0 top-[50%] transform -translate-y-1/2 mr-2"
+                        src="./assets/imgs/icons/icone-seta-enviar.png"
+                        alt="icone enviar"
+                    />
+                </div>
+                <p class="text-gray-300 text-xs text-center">
+                    ChatGPT pode cometer erros. Considere verificar informações importantes.
+                </p>
+            </div>
+        </div>
+        <div
+            class="w-[100vw] h-screen bg-darker-blue overflow-y-auto snap snap-y snap-mandatory relative z-[1] overflow-x-hidden"
+        >
+            <div class="absolute top-0 left-0 w-full">
+                <img class="w-full object-cover" src="./assets/imgs/BG hero section.jpg" alt="background" />
+            </div>
+            <header
+                class="sticky top-0 flex justify-between items-center px-4 md:px-16 py-4 w-full h-[90px] bg-black relative z-[1000] bg-opacity-45 backdrop-blur-sm"
+            >
+                <div
+                    class="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-left-gradient-purple-opacity via-middle-gradient-purple-opacity to-right-gradient-purple-opacity"
+                ></div>
+                <div class="flex items-center">
+                    <img class="w-52 object-cover" src="./assets/imgs/Logo GlobalSolutions.png" alt="logo" />
+                </div>
+                <div id="menu-icon" class="flex items-center block md:hidden">
+                    <img class="w-[24px] object-cover" src="./assets/imgs/icons/icone-hamburger.png" alt="icone menu" />
+                </div>
+                <nav class="hidden md:block">
+                    <ul class="flex items-center">
+                        <li class="text-purple-left text-lg mx-4 cursor-pointer transition-all">
+                            <a href="#main-section">Quem Somos</a>
+                        </li>
+                        <li class="text-white text-lg mx-4 cursor-pointer hover:text-purple-left transition-all">
+                            <a href="/noticias.html">Notícias</a>
+                        </li>
+                        <li class="text-white text-lg mx-4 cursor-pointer hover:text-purple-left transition-all">
+                            <a href="/cadastre-se.html">Cadastre-se</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div id="dropdown-menu" class="hidden absolute top-[90px] right-0 w-40 backdrop-blur-sm">
+                    <ul>
+                        <li
+                            class="text-white text-lg px-4 py-2 border-b-2 transition-all border-purple-left active:bg-dark-blue bg-black bg-opacity-90"
+                        >
+                            <a href="#main-section">Quem Somos</a>
+                        </li>
+                        <li
+                            class="text-white text-lg px-4 py-2 border-b-2 transition-all border-purple-left active:bg-dark-blue bg-black bg-opacity-90"
+                        >
+                            <a href="/noticias.html">Noticias</a>
+                        </li>
+                        <li
+                            class="text-white text-lg px-4 py-2 border-b-2 transition-all border-purple-left active:bg-dark-blue bg-black bg-opacity-90"
+                        >
+                            <a href="/cadastre-se.html">Cadastre-se</a>
+                        </li>
+                    </ul>
+                </div>
+            </header>
+            <section
+                id="main-section"
+                class="w-full lg:h-screen flex flex-col items-center justify-center relative z-1 snap-always lg:snap-center"
+            >
+                <div
+                    id="open-chat"
+                    class="fixed z-[10000] bottom-[1rem] right-[2rem] w-[32px] h-[32px] md:w-[64px] md:h-[64px] md:bottom-[1.5rem] md:right-[3rem] brightness-150 hover:brightness-200 active:brigthness-200 cursor-pointer transition-all"
+                >
+                    <img
+                        src="./assets/imgs/logo_chat_gepeto.png"
+                        alt="icone chat"
+                        class="w-[100%] h-[100%] object-cover"
+                    />
+                </div>
+                <div class="sm:p-10 w-full md:w-[900px] flex flex-col items-center p-8 md:p-0">
+                    <h1 class="text-even-lighter-blue text-3xl md:text-5xl font-semibold text-center mb-8">
+                        Nossa missão é
+                        <span
+                            class="bg-clip-text text-transparent bg-gradient-to-r from-purple-right via-purple-left to-purple-left"
+                            >salvar</span
+                        >
+                        os oceanos
+                    </h1>
+                    <p class="text-even-lighter-blue text-lg md:text-2xl md:w-[700px] font-light text-center">
+                        Para isso, utilizamos das mais avançadas tecnologias, criando soluções e conectando pessoas aos
+                        oceanos, para que possamos, juntos, cumprir esta missão
+                    </p>
+                </div>
+                <section class="flex gap-16 flex-wrap justify-center">
+                    <div
+                        id="cards"
+                        class="mt-10 w-[320px] h-[224px] bg-gradient-to-tl from-purple-left via-black to-purple-left rounded-lg p-[1px]"
+                    >
+                        <div
+                            class="gap-1 p-4 bg-black w-full h-full rounded-lg bg-gradient-to-tl from-black from-5% to-dark-purple to-90% flex flex-col"
+                        >
+                            <img
+                                class="w-[42px] h-[42px] object-cover"
+                                src="./assets/imgs/icons/icone-ia.png"
+                                alt="icone cérebro"
+                            />
+                            <p class="font-medium text-light-purple text-lg">IA + Ciência de Dados</p>
+                            <p class="text-white text-md">
+                                Utilizamos IA e Ciência de Dados para analisar e compreender dados do projeto, otimizando recursos e minimizando impactos ambientais de forma mais assertiva.
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        id="cards"
+                        class="mt-10 w-[320px] h-[224px] bg-gradient-to-tl from-purple-left via-black to-purple-left rounded-lg p-[1px]"
+                    >
+                        <div
+                            class="gap-1 p-4 bg-black w-full h-full rounded-lg bg-gradient-to-tl from-black from-5% to-dark-purple to-90% flex flex-col"
+                        >
+                            <img
+                                class="w-[42px] h-[42px] object-cover"
+                                src="./assets/imgs/icons/icone-satelite.png"
+                                alt="icone satélite"
+                            />
+                            <p class="font-medium text-light-purple text-lg">Sensoriamento Remoto</p>
+                            <p class="text-white text-md">
+                                Monitoramento avançado dos oceanos usando tecnologia de sensoriamento remoto para análises precisas e proteção ambiental.
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        id="cards"
+                        class="mt-10 w-[320px] h-[224px] bg-gradient-to-tl from-purple-left via-black to-purple-left rounded-lg p-[1px]"
+                    >
+                        <div
+                            class="gap-1 p-4 bg-black w-full h-full rounded-lg bg-gradient-to-tl from-black from-5% to-dark-purple to-90% flex flex-col"
+                        >
+                            <img
+                                class="w-[42px] h-[42px] object-cover"
+                                src="./assets/imgs/icons/icone-conectividade.png"
+                                alt="icone conectividade"
+                            />
+                            <p class="font-medium text-light-purple text-lg">Conectividade</p>
+                            <p class="text-white text-md">
+                                Conectamos soluções, parceiros e stakeholders para decisões mais assertivas e precisas no combate à poluição oceânica.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                <a href="#next-section" class="hover:brightness-125 transition-all">
+                    <img
+                        class="w-[36px] mt-16 object-cover hidden lg:block"
+                        src="./assets/imgs/icons/icone-setas-baixo.png"
+                        alt="icone setas"
+                    />
+                </a>
+            </section>
+            <section
+                id="next-section"
+                class="w-full lg:h-screen flex flex-col items-center justify-center relative z-1 snap-always lg:snap-center relative mt-16 lg:mt-0"
+            >
+                <img
+                    class="absolute w-[240px] left-[-70px] object-cover"
+                    src="./assets/imgs/vetor openai.png"
+                    alt="simbolo open ai"
+                />
+                <div class="flex gap-16 flex-col lg:flex-row p-2 lg:p-0">
+                    <div class="sm:p-10 w-full md:w-[555px] flex flex-col items-center p-8 md:p-0">
+                        <h1
+                            class="text-even-lighter-blue text-xl md:text-3xl font-medium mb-8 text-center lg:text-left"
+                        >
+                            Utilizamos as mais novas tecnologias para
+                            <span
+                                class="bg-clip-text text-transparent bg-gradient-to-r from-purple-right via-purple-left to-purple-left"
+                                >maximizar</span
+                            >
+                            nosso impacto
+                        </h1>
+                        <p
+                            class="text-even-lighter-blue text-sm md:text-lg md:w-[555px] font-light text-center lg:text-left"
+                        >
+                            O ChatGPT é um modelo de linguagem desenvolvido pela OpenAI, baseado na arquitetura GPT-4.
+                            Ele funciona utilizando técnicas de aprendizado de máquina para compreender e gerar texto de
+                            maneira semelhante à humana. Treinado em uma vasta quantidade de dados textuais, o ChatGPT
+                            pode responder perguntas, fornecer recomendações e mais.
+                            <br /><br />
+                            Utilize nosso assistente virtual, alimentado pela avançada tecnologia da OpenAI, para
+                            esclarecer suas dúvidas sobre o conteúdo do site de maneira rápida e eficiente. Clique no
+                            ícone no canto inferior direito da tela para experimentar!
+                        </p>
+                    </div>
+                    <img
+                        class="h-[64px] object-cover hidden md:block lg:self-center invert brightness-0 self-end"
+                        src="./assets/imgs/logo openai.png"
+                        alt="logo open ai"
+                    />
+                </div>
+            </section>
+            <section
+                class="w-full lg:h-screen flex flex-col items-center justify-center relative z-1 snap-always lg:snap-center relative mt-16 lg:mt-0"
+            >
+                <div class="flex gap-16 flex-col p-2 lg:p-0">
+                    <div class="sm:p-10 w-full flex flex-col items-center p-8 md:p-0">
+                        <h1
+                            class="bg-clip-text text-transparent bg-gradient-to-r from-purple-right via-purple-left to-purple-left text-even-lighter-blue text-3xl md:text-5xl font-black mb-8 text-center"
+                        >
+                            CATEGORIAS
+                        </h1>
+                    </div>
+                    <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 p-8 gap-4 lg:gap-8">
+                        <div
+                            id="categoria-card"
+                            class="border border-2 border-purple-left rounded-lg bg-dark-blue py-8 px-16 flex flex-col items-center gap-4"
+                        >
+                            <div class="bg-purple-left rounded-full w-[80px] h-[80px] flex justify-center items-center">
+                                <img
+                                    class="w-[32px] h-[32px] object-cover brightness-0"
+                                    src="./assets/imgs/icons/icone-poluicao.png"
+                                    alt="icone poluicao"
+                                />
+                            </div>
+                            <p class="text-white font-bold text-center">Poluição</p>
+                        </div>
+                        <div
+                            id="categoria-card"
+                            class="border border-2 border-purple-left rounded-lg bg-dark-blue py-8 px-16 flex flex-col items-center gap-4"
+                        >
+                            <div class="bg-purple-left rounded-full w-[80px] h-[80px] flex justify-center items-center">
+                                <img
+                                    class="w-[32px] h-[32px] object-cover brightness-0"
+                                    src="./assets/imgs/icons/icone-tecnologia.png"
+                                    alt="icone tecnologia"
+                                />
+                            </div>
+                            <p class="text-white font-bold text-center">Tecnologia</p>
+                        </div>
+                        <div
+                            id="categoria-card"
+                            class="border border-2 border-purple-left rounded-lg bg-dark-blue py-8 px-16 flex flex-col items-center gap-4"
+                        >
+                            <div class="bg-purple-left rounded-full w-[80px] h-[80px] flex justify-center items-center">
+                                <img
+                                    class="w-[32px] h-[32px] object-cover brightness-0"
+                                    src="./assets/imgs/icons/icone-mudancas-climaticas.png"
+                                    alt="icone mudanças climaticas"
+                                />
+                            </div>
+                            <p class="text-white font-bold text-center">Mudanças Climaticas</p>
+                        </div>
+                        <div
+                            id="categoria-card"
+                            class="border border-2 border-purple-left rounded-lg bg-dark-blue py-8 px-16 flex flex-col items-center gap-4"
+                        >
+                            <div class="bg-purple-left rounded-full w-[80px] h-[80px] flex justify-center items-center">
+                                <img
+                                    class="w-[32px] h-[32px] object-cover brightness-0"
+                                    src="./assets/imgs/icons/icone-biodiversidade.png"
+                                    alt="icone biodiversidade"
+                                />
+                            </div>
+                            <p class="text-white font-bold text-center">Biodiversidade</p>
+                        </div>
+                        <div
+                            id="categoria-card"
+                            class="border border-2 border-purple-left rounded-lg bg-dark-blue py-8 px-16 flex flex-col items-center gap-4"
+                        >
+                            <div class="bg-purple-left rounded-full w-[80px] h-[80px] flex justify-center items-center">
+                                <img
+                                    class="w-[32px] h-[32px] object-cover brightness-0"
+                                    src="./assets/imgs/icons/icone-habitos.png"
+                                    alt="icone hábitos"
+                                />
+                            </div>
+                            <p class="text-white font-bold text-center">Hábitos</p>
+                        </div>
+                        <div
+                            id="categoria-card"
+                            class="border border-2 border-purple-left rounded-lg bg-dark-blue py-8 px-16 flex flex-col items-center gap-4"
+                        >
+                            <div class="bg-purple-left rounded-full w-[80px] h-[80px] flex justify-center items-center">
+                                <img
+                                    class="w-[32px] h-[32px] object-cover brightness-0"
+                                    src="./assets/imgs/icons/icone-politica.png"
+                                    alt="icone política"
+                                />
+                            </div>
+                            <p class="text-white font-bold text-center">Política</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section
+                class="w-full lg:h-screen flex flex-col items-center justify-center relative z-1 snap-always lg:snap-center relative lg:mt-0"
+            >
+                <div class="flex gap-4 md:gap-16 flex-col p-2 lg:p-0">
+                    <img
+                        class="absolute w-[200vw] object-cover top-[50%] left-0 rotate-[173.5deg]"
+                        src="./assets/imgs/svg bg.png"
+                        alt="background linhazinha"
+                    />
+                    <div class="sm:p-10 w-full flex flex-col items-center py-8 md:p-0 relative z-[1]">
+                        <h1
+                            class="bg-clip-text text-transparent bg-gradient-to-r from-purple-right via-purple-left to-purple-left text-even-lighter-blue text-3xl md:text-5xl font-black text-center"
+                        >
+                            NOSSOS PARCEIROS
+                        </h1>
+                    </div>
+                    <div
+                        class="flex flex-col md:flex-row gap-4 md:gap-16 px-4 md:px-52 flex-wrap justify-center items-center"
+                    >
+                        <img
+                            class="h-[70px] md:h-[90px]"
+                            src="./assets/imgs/select-solucoes-logo.png"
+                            alt="logo select solucoes"
+                        />
+                        <img
+                            class="h-[70px] md:h-[90px]"
+                            src="./assets/imgs/voz-dos-oceanos-logo.png"
+                            alt="logo voz dos oceanos"
+                        />
+                        <img class="h-[70px] md:h-[90px]" src="./assets/imgs/softtek.png" alt="logo softtek" />
+                        <img class="h-[70px] md:h-[90px]" src="./assets/imgs/evidve-logo.png" alt="logo evidve" />
+                        <img class="h-[70px] md:h-[90px]" src="./assets/imgs/unesco-logo.png" alt="logo unesco" />
+                    </div>
+                    <div
+                        class="w-full flex flex-col md:flex-row gap-4 md:gap-16 px-4 md:px-52 items-center justify-center text-lg md:text-2xl relative z-[1]"
+                    >
+                        <div class="text-white font-medium">
+                            Cadastre-se para receber novidades e <br />conteúdos
+                            <span
+                                class="bg-clip-text text-transparent bg-gradient-to-r from-purple-right via-purple-left to-purple-left"
+                                >exclusivos!</span
+                            >
+                        </div>
+                        <div class="flex flex-col md:flex-row gap-4 md:gap-8 px-8 md:p-0 mb-16 md:mb-0">
+                            <input
+                                class="bg-whiet text-black px-2 rounded-3xl text-lg"
+                                type="text"
+                                placeholder="Digite seu e-mail"
+                            />
+                            <button
+                                class="text-lg bg-gradient-to-r font-regular from-purple-right to-purple-left text-white text-lg px-8 py-2 rounded-3xl"
+                            >
+                                Cadastrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <footer
+                class="hidden lg:block w-full bg-black flex flex-col justify-center items-center text-white text-lg snap-always lg:snap-center p-16 relative"
+            >
+                <div class="w-full">
+                    <img class="w-48 object-cover" src="./assets/imgs/Logo GlobalSolutions.png" alt="logo" />
+                </div>
+                <img
+                    src="./assets/imgs/logo-footer.png"
+                    class="absolute top-[-150px] right-[-100px]"
+                    alt="logo footer"
+                />
+                <div class="w-full flex flex-row gap-16">
+                    <div class="flex flex-col gap-4 mt-32">
+                        <p class="text-purple-left font-bold">Acesse</p>
+                        <p class="ml-4 font-light">Últimas notícias</p>
+                        <p class="ml-4 font-light">Dados importantes</p>
+                        <p class="ml-4 font-light">GS Oceans na mídia</p>
+                        <p class="ml-4 font-light">Categorias</p>
+                        <p class="ml-4 font-light">Quem somos</p>
+                        <p class="ml-4 font-light">Nossa missão</p>
+                        <p class="ml-4 font-light">Assine nossa Newsletter</p>
+                    </div>
+                    <div class="flex flex-col gap-4 mt-32">
+                        <p class="text-purple-left font-bold">Nossas redes</p>
+                        <p class="ml-4 font-light">Twitter</p>
+                        <p class="ml-4 font-light">Facebook</p>
+                        <p class="ml-4 font-light">Instagram</p>
+                        <p class="ml-4 font-light">YouTube</p>
+                        <p class="ml-4 font-light">TikTok</p>
+                        <p class="ml-4 font-light">LinkedIn</p>
+                    </div>
+                    <div class="flex flex-col gap-4 mt-32">
+                        <p class="text-purple-left font-bold">Políticas</p>
+                        <p class="ml-4 font-light">FAQ</p>
+                        <p class="ml-4 font-light">Termos de Uso</p>
+                        <p class="ml-4 font-light">Aviso de privacidade</p>
+                        <p class="ml-4 font-light">Ambientais</p>
+                        <p class="ml-4 font-light">Sociais</p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <script src="./assets/javascript/index.js"></script>
+    </body>
+</html>
